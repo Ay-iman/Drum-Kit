@@ -4,6 +4,7 @@ var numberOfDrums = document.querySelectorAll(".drum");
 function whenClick() {
   var buttonInnerHtml = this.innerHTML;
   makeSound(buttonInnerHtml)
+  buttonAnimation(buttonInnerHtml)
 }
 
 
@@ -49,9 +50,20 @@ function makeSound(key) {
     }
 }
 
+function buttonAnimation(currentkey) {
+  var activeButton = document.querySelector("." + currentkey)
+
+  activeButton.classList.add("pressed");
+
+  setTimeout(function () {
+    activeButton.classList.remove("pressed");
+  }, 100);
+}
+
 for (var i = 0; i < numberOfDrums.length; i++) {
   numberOfDrums[i].addEventListener("click", whenClick);
   numberOfDrums[i].addEventListener("keypress", function (event) { //keyboard 
     makeSound(event.key)
+    buttonAnimation(event.key)
   });
 }
